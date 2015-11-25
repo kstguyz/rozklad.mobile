@@ -2,16 +2,16 @@
 
 namespace Rozklad.Mobile.Core.WebService.Exceptions
 {
-	public abstract class WebServiceException : Exception
+	public class WebServiceException : Exception
 	{
-		protected WebServiceException()
+		public WebServiceException()
 		{ }
 
-		protected WebServiceException(string message) 
+		public WebServiceException(string message) 
 			: base(message)
 		{ }
 
-		protected WebServiceException(string message, Exception innerException)
+		public WebServiceException(string message, Exception innerException)
 			: base(message, innerException)
 		{ }
 	}

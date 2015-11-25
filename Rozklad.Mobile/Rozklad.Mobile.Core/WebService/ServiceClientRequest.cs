@@ -4,8 +4,12 @@ namespace Rozklad.Mobile.Core.WebService
 {
 	public class ServiceClientRequest : IServiceClientRequest
 	{
-		public IDictionary<string, object> Parameters { get; set; }
-		public IDictionary<string, string> Headers { get; set; }
-		public IDictionary<string, string> Cookie { get; set; }
+		private readonly Dictionary<string, object> parameters = new Dictionary<string, object>(); 
+		private readonly Dictionary<string, string> headers = new Dictionary<string, string>(); 
+		private readonly Dictionary<string, string> cookie = new Dictionary<string, string>(); 
+
+		public IDictionary<string, object> Parameters => parameters;
+		public IDictionary<string, string> Headers => headers;
+		public IDictionary<string, string> Cookie => cookie;
 	}
 }

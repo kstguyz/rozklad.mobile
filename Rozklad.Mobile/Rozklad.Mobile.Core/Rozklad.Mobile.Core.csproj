@@ -40,6 +40,8 @@
       <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BusinessLogic\Building.cs" />
+    <Compile Include="Configuration\Parameters.cs" />
+    <Compile Include="Configuration\Urls.cs" />
     <Compile Include="DataBase\CannotCreateTableException.cs" />
     <Compile Include="DataBase\CannotDropTableException.cs" />
     <Compile Include="DataBase\DataBaseConnectionAsync.cs" />
@@ -54,27 +56,41 @@
     <Compile Include="Entities\GroupDegree.cs" />
     <Compile Include="Entities\Lesson.cs" />
     <Compile Include="Entities\LessonType.cs" />
+    <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Teacher.cs" />
     <Compile Include="Extensions\ConsoleLogger.cs" />
+    <Compile Include="Extensions\ContainerExtensions.cs" />
     <Compile Include="Extensions\ThrowExtensions.cs" />
-    <Compile Include="LocalRepositories\BuildingRepository.cs" />
-    <Compile Include="LocalRepositories\DisciplineRepository.cs" />
-    <Compile Include="LocalRepositories\GroupRepository.cs" />
-    <Compile Include="LocalRepositories\IBuildingRepository.cs" />
-    <Compile Include="LocalRepositories\IDisciplineRepository.cs" />
-    <Compile Include="LocalRepositories\IGroupRepository.cs" />
-    <Compile Include="LocalRepositories\ILessonRepository.cs" />
-    <Compile Include="LocalRepositories\ILocalRepositoryAsync.cs" />
-    <Compile Include="LocalRepositories\IRoomRepository.cs" />
-    <Compile Include="LocalRepositories\ITeacherRepository.cs" />
-    <Compile Include="LocalRepositories\LessonRepository.cs" />
-    <Compile Include="LocalRepositories\LocalRepositoryAsyncBase.cs" />
-    <Compile Include="LocalRepositories\TeacherRepository.cs" />
-    <Compile Include="LocalRepositories\RoomRepository.cs" />
+    <Compile Include="Repositories\Local\BuildingRepository.cs" />
+    <Compile Include="Repositories\Local\DisciplineRepository.cs" />
+    <Compile Include="Repositories\Local\GroupRepository.cs" />
+    <Compile Include="Repositories\Local\IBuildingRepository.cs" />
+    <Compile Include="Repositories\Local\IDisciplineRepository.cs" />
+    <Compile Include="Repositories\Local\IGroupRepository.cs" />
+    <Compile Include="Repositories\Local\ILessonRepository.cs" />
+    <Compile Include="Repositories\Local\ILocalRepositoryAsync.cs" />
+    <Compile Include="Repositories\Local\IRoomRepository.cs" />
+    <Compile Include="Repositories\Local\ITeacherRepository.cs" />
+    <Compile Include="Repositories\Local\LessonRepository.cs" />
+    <Compile Include="Repositories\Local\LocalRepositoryAsyncBase.cs" />
+    <Compile Include="Repositories\Local\TeacherRepository.cs" />
+    <Compile Include="Repositories\Local\RoomRepository.cs" />
+    <Compile Include="MvxJsonConverter.cs" />
     <Compile Include="PlatformServices\IConsoleLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Repositories\Remote\BuildingRepository.cs" />
+    <Compile Include="Repositories\Remote\DisciplineRepository.cs" />
+    <Compile Include="Repositories\Remote\GroupRepository.cs" />
+    <Compile Include="Repositories\Remote\IBuildingRepository.cs" />
+    <Compile Include="Repositories\Remote\IDisciplineRepository.cs" />
+    <Compile Include="Repositories\Remote\IGroupRepository.cs" />
+    <Compile Include="Repositories\Remote\IRemoteRepositoryAsyncBase.cs" />
+    <Compile Include="Repositories\Remote\ITeacherRepository.cs" />
+    <Compile Include="Repositories\Remote\RemoteRepositoryAsyncBase.cs" />
+    <Compile Include="Repositories\Remote\RoomRepository.cs" />
+    <Compile Include="Repositories\Remote\TeacherRepository.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="WebService\DataContracts\Response\Building.cs" />
     <Compile Include="WebService\DataContracts\Response\Discipline.cs" />
@@ -109,6 +125,7 @@
     <Compile Include="WebService\Rest\RestMethodType.cs" />
     <Compile Include="WebService\Rest\RestServiceAuthenticationType.cs" />
     <Compile Include="WebService\ServiceClientRequest.cs" />
+    <Compile Include="WebService\WebServiceConnectionAsync.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Rozklad.Mobile.Core.DataBase;
 
-namespace Rozklad.Mobile.Core.LocalRepositories
+namespace Rozklad.Mobile.Core.Repositories.Local
 {
 	public interface ILocalRepositoryAsync<TEntity> : IDisposable
 		where TEntity : class, IEntity, new()

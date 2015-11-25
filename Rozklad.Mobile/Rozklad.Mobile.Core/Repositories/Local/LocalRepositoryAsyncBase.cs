@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Rozklad.Mobile.Core.DataBase;
 using Rozklad.Mobile.Core.Extensions;
 
-namespace Rozklad.Mobile.Core.LocalRepositories
+namespace Rozklad.Mobile.Core.Repositories.Local
 {
 	public abstract class LocalRepositoryAsyncBase<TEntity> : DataBaseConnectionAsync, ILocalRepositoryAsync<TEntity>
 		where TEntity : class, IEntity, new()

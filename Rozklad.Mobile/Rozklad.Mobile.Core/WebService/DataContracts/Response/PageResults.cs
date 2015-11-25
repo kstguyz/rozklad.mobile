@@ -16,6 +16,6 @@ namespace Rozklad.Mobile.Core.WebService.DataContracts.Response
 		public int PreviousResultsUrl { get; set; }
 
 		[JsonProperty("results")]
-		public IEnumerable<TEntity> Results { get; set; } 
+		public IEnumerable<TEntity> Results { get; set; } = new TEntity[0];
 	}
 }

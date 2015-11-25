@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using RestSharp.Portable;
 using RestSharp.Portable.Authenticators;
+using Rozklad.Mobile.Core.Extensions;
+using Rozklad.Mobile.Core.WebService.Exceptions;
 using Rozklad.Mobile.Core.WebService.Rest;
 using Rozklad.Mobile.Core.WebService.RestSharp.OAuth;
 
@@ -26,6 +28,19 @@ namespace Rozklad.Mobile.Core.WebService.RestSharp
 			authenticators = new Dictionary<string, IAuthenticator>();
 		}
 
+		public bool UseProxy
+		{
+			get { return useProxy; }
+			set
+			{
+				if (useProxy == value)
+					return;
+
+				client.Proxy = proxyFactory?.CreateDefaultProxy();
+				useProxy = value;
+			}
+		}
+
 		public async Task<byte[]> ExecuteContentAsync(string uri, IServiceClientRequest request, RestMethodType methodType)
 		{
 			var response = await ExecuteRequestAsync(uri, request, methodType);
@@ -35,10 +50,21 @@ namespace Rozklad.Mobile.Core.WebService.RestSharp
 
 		public async Task<TDto> ExecuteRequestAsync<TDto>(string uri, IServiceClientRequest request, RestMethodType methodType)
 		{
-			var response = await ExecuteRequestAsync(uri, request, methodType);
-			var deserializer = client.GetHandler(response.ContentType);
+			try
+			{
+				var response = await ExecuteRequestAsync(uri, request, methodType);
+				var deserializer = client.GetHandler(response.ContentType);
 
-			return deserializer.Deserialize<TDto>(response);
+				return deserializer.Deserialize<TDto>(response);
+			}
+			catch (WebServiceException)
+			{
+				throw;
+			}
+			catch (Exception e)
+			{
+				throw new WebServiceException("Exception occure while processing the request", e);
+			}
 		}
 
 		public void AddAuthenticator(string key, IRestServiceAuthenticationConfig authConfig)
@@ -81,29 +107,11 @@ namespace Rozklad.Mobile.Core.WebService.RestSharp
 			}
 		}
 
-		public bool UseProxy
-		{
-			get
-			{
-				return useProxy;
-			}
-			set
-			{
-				if (useProxy != value)
-				{
-					client.Proxy = proxyFactory?.CreateDefaultProxy();
-					useProxy = value;
-				}
-			}
-		}
-
 		private async Task<IRestResponse> ExecuteRequestAsync(string uri, IServiceClientRequest request, RestMethodType methodType)
 		{
-			if (string.IsNullOrEmpty(uri))
-				throw new ArgumentException("Uri string is null or empty");
+			uri.ThrowIfNullOrEmpty(nameof(uri));
 
 			var restRequest = SetupRequest(uri, request, methodType);
-
 			var response = await client.Execute(restRequest);
 
 			if (response.IsSuccess)
