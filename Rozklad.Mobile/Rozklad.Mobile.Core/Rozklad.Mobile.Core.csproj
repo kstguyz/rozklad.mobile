@@ -86,7 +86,7 @@
     <Compile Include="Repositories\Remote\IBuildingRepository.cs" />
     <Compile Include="Repositories\Remote\IDisciplineRepository.cs" />
     <Compile Include="Repositories\Remote\IGroupRepository.cs" />
-    <Compile Include="Repositories\Remote\IRemoteRepositoryAsyncBase.cs" />
+    <Compile Include="Repositories\Remote\IRemoteRepositoryAsync.cs" />
     <Compile Include="Repositories\Remote\ITeacherRepository.cs" />
     <Compile Include="Repositories\Remote\RemoteRepositoryAsyncBase.cs" />
     <Compile Include="Repositories\Remote\RoomRepository.cs" />
