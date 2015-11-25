@@ -48,6 +48,10 @@
     <Compile Include="DataBase\IConnectionAsync.cs" />
     <Compile Include="DataBase\IConnectionFactory.cs" />
     <Compile Include="DataBase\IEntity.cs" />
+    <Compile Include="DataBase\ISqlitePlatformContext.cs" />
+    <Compile Include="DataBase\SingletonConnectionFactory.cs" />
+    <Compile Include="DataBase\SqliteConnectionWrapperAsync.cs" />
+    <Compile Include="DataBase\SqlitePlatformContextBase.cs" />
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\Discipline.cs" />
     <Compile Include="Entities\EntityBase.cs" />
@@ -86,8 +90,11 @@
     <Compile Include="Repositories\Remote\IBuildingRepository.cs" />
     <Compile Include="Repositories\Remote\IDisciplineRepository.cs" />
     <Compile Include="Repositories\Remote\IGroupRepository.cs" />
+    <Compile Include="Repositories\Remote\ILessonRepository.cs" />
     <Compile Include="Repositories\Remote\IRemoteRepositoryAsync.cs" />
+    <Compile Include="Repositories\Remote\IRoomRepository.cs" />
     <Compile Include="Repositories\Remote\ITeacherRepository.cs" />
+    <Compile Include="Repositories\Remote\LessonRepository.cs" />
     <Compile Include="Repositories\Remote\RemoteRepositoryAsyncBase.cs" />
     <Compile Include="Repositories\Remote\RoomRepository.cs" />
     <Compile Include="Repositories\Remote\TeacherRepository.cs" />
