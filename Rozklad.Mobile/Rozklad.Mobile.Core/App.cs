@@ -1,20 +1,22 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.ViewModels;
 using Rozklad.Mobile.Core.Extensions;
 
 namespace Rozklad.Mobile.Core
 {
-    public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
+    public class App : MvxApplication
     {
 	    public override void Initialize()
 	    {
-		    base.Initialize();
 			RegisterInIoc();
-	    }
+			RegisterAppStart(Resolve<IMvxAppStart>());
+		}
 
-        public void RegisterInIoc()
+		public void RegisterInIoc()
         {
 			Mvx.RegisterSingleton<IMvxJsonConverter>(() => new MvxJsonConverter());
+			Mvx.RegisterSingleton<IMvxAppStart>(() => new AppStart());
 
 			// database
 			Mvx.RegisterSingleton<DataBase.IConnectionFactory>(() => new DataBase.SingletonConnectionFactory(Resolve<DataBase.ISqlitePlatformContext>()));
@@ -76,6 +78,9 @@ namespace Rozklad.Mobile.Core
 			Mvx.RegisterSingleton<BusinessLogic.Converters.IRoomConverter> (() => new BusinessLogic.Converters.RoomConverter());
 			Mvx.RegisterSingleton<BusinessLogic.Converters.ITeacherConverter> (() => new BusinessLogic.Converters.TeacherConverter());
 			Mvx.RegisterSingleton<BusinessLogic.Converters.ILessonConverter> (() => new BusinessLogic.Converters.LessonConverter());
+
+			// viewmodels
+			Mvx.RegisterSingleton<ViewModels.IViewModelFactory>(() => new ViewModels.ViewModelFactory(Resolve<IMvxViewModelLoader>()));
 		}
 
 		private static T Resolve<T>() where T : class

@@ -1,11 +1,15 @@
 using Android.Content;
+using Android.Views;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Droid;
 using Cirrious.CrossCore.Droid.Platform;
 using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Binding.Bindings.Target.Construction;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Rozklad.Mobile.Core.Extensions;
+using Rozklad.Mobile.Droid.Bindings;
+using Rozklad.Mobile.Droid.Views.Controls;
 
 namespace Rozklad.Mobile.Droid
 {
@@ -52,6 +56,14 @@ namespace Rozklad.Mobile.Droid
 			var logger = new PlatformServices.ConsoleLogger(appName);
 
 			return logger;
+		}
+
+		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+		{
+			base.FillTargetFactories(registry);
+
+			registry.RegisterCustomBindingFactory<VerticalRecyclerView>("RecyclerSource", view => new VerticalRecyclerViewRecyclerSourceTargetBinding(view));
+			registry.RegisterCustomBindingFactory<VerticalRecyclerView>("LoadMore", view => new VerticalRecyclerViewLoadMoreTargetBinding(view));
 		}
 
 		private static T Resolve<T>() where T : class

@@ -73,6 +73,7 @@
     <Compile Include="BusinessLogic\TeacherSearch.cs" />
     <Compile Include="Configuration\Parameters.cs" />
     <Compile Include="Configuration\Urls.cs" />
+    <Compile Include="AppStart.cs" />
     <Compile Include="DataBase\CannotCreateTableException.cs" />
     <Compile Include="DataBase\CannotDropTableException.cs" />
     <Compile Include="DataBase\DataBaseConnectionAsync.cs" />
@@ -134,7 +135,11 @@
     <Compile Include="Repositories\Remote\RemoteRepositoryAsyncBase.cs" />
     <Compile Include="Repositories\Remote\RoomRepository.cs" />
     <Compile Include="Repositories\Remote\TeacherRepository.cs" />
+    <Compile Include="ViewModels\GroupTimeTableViewModel.cs" />
+    <Compile Include="ViewModels\IViewModelFactory.cs" />
+    <Compile Include="ViewModels\LessonViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelFactory.cs" />
     <Compile Include="WebService\DataContracts\Response\Building.cs" />
     <Compile Include="WebService\DataContracts\Response\Discipline.cs" />
     <Compile Include="WebService\DataContracts\Response\Group.cs" />
