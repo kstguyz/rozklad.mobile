@@ -8,11 +8,11 @@ namespace Rozklad.Mobile.Core
 {
 	public class MvxJsonConverter : IMvxJsonConverter, IMvxTextSerializer
 	{
-		private readonly JsonSerializer _jsonSerializer;
+		private readonly JsonSerializer jsonSerializer;
 
 		public MvxJsonConverter()
 		{
-			_jsonSerializer = new JsonSerializer();
+			jsonSerializer = new JsonSerializer();
 		}
 
 		public T DeserializeObject<T>(string inputText)
@@ -21,7 +21,7 @@ namespace Rozklad.Mobile.Core
 			{
 				using (var jsonTextReader = new JsonTextReader(stringReader))
 				{
-					return this._jsonSerializer.Deserialize<T>(jsonTextReader);
+					return jsonSerializer.Deserialize<T>(jsonTextReader);
 				}
 			}
 		}
@@ -30,7 +30,7 @@ namespace Rozklad.Mobile.Core
 		{
 			using (var stringReader = new StringReader(inputText))
 			{
-				return _jsonSerializer.Deserialize(stringReader, type);
+				return jsonSerializer.Deserialize(stringReader, type);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace Rozklad.Mobile.Core
 			var sb = new StringBuilder();
 			using (var stringWriter = new StringWriter(sb))
 			{
-				_jsonSerializer.Serialize(stringWriter, toSerialise);
+				jsonSerializer.Serialize(stringWriter, toSerialise);
 			}
 
 			return sb.ToString();

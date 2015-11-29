@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SQLite.Net.Attributes;
 
 namespace Rozklad.Mobile.Core.Entities
 {
@@ -9,13 +10,21 @@ namespace Rozklad.Mobile.Core.Entities
 		public byte Week { get; set; }
 		public LessonType LessonType { get; set; }
 		public byte DisciplineName { get; set; }
+		[Ignore]
 		public Discipline Discipline { get; set; }
-		public IEnumerable<string> GroupsNames { get; set; }
+		public int DisciplineId { get; set; }
+		public IEnumerable<string> GroupNames { get; set; }
+		[Ignore]
 		public IEnumerable<Group> Groups { get; set; }
-		public IEnumerable<string> TeachersShortNames { get; set; }
+		public IEnumerable<int> GroupIds { get; set; }
+		public IEnumerable<string> TeacherShortNames { get; set; }
+		[Ignore]
 		public IEnumerable<Teacher> Teachers { get; set; }
-		public IEnumerable<string> RoomsFullNames { get; set; }
+		public IEnumerable<int> TeacherIds { get; set; }
+		public IEnumerable<string> RoomFullNames { get; set; }
+		[Ignore]
 		public IEnumerable<Room> Rooms { get; set; }
+		public IEnumerable<int> RoomIds { get; set; }
 
 		public static Lesson Convert(Rozklad.Mobile.Core.WebService.DataContracts.Response.Lesson webEntity)
 		{
@@ -28,13 +37,13 @@ namespace Rozklad.Mobile.Core.Entities
 					Week = webEntity.Week,
 					LessonType = (LessonType)webEntity.TypeId,
 					DisciplineName = webEntity.DisciplineName,
-					//Discipline = webEntity.DisciplineId,
-					GroupsNames = webEntity.GroupsNames,
-					//Groups = webEntity.GroupsIds,
-					TeachersShortNames = webEntity.TeachersShortNames,
-					//Teachers = webEntity.TeachersIds,
-					RoomsFullNames = webEntity.RoomsFullNames,
-					//Rooms = webEntity.RoomsIds
+					DisciplineId = webEntity.DisciplineId,
+					GroupNames = webEntity.GroupNames,
+					GroupIds = webEntity.GroupIds,
+					TeacherShortNames = webEntity.TeacherShortNames,
+					TeacherIds = webEntity.TeacherIds,
+					RoomFullNames = webEntity.RoomFullNames,
+					RoomIds = webEntity.RoomIds
 				};
 
 			return entity;

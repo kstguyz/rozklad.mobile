@@ -12,7 +12,32 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 			: base(restServiceClient, url)
 		{ }
 
-		public async Task<PageResults<Teacher>> FilterAsync(string lastName = "", string firstName = "", string middleName = "", string degree = "")
+		public async Task<PageResults<Teacher>> FilterAsync(string lastName = "",
+		                                                    string firstName = "",
+		                                                    string middleName = "",
+		                                                    string degree = "")
+		{
+			var parameters = ProduceParameters(lastName, firstName, middleName, degree);
+			var result = await GetFilteredAsync(parameters);
+
+			return result;
+		}
+
+		public async Task<IEnumerable<Teacher>> FilterAllAsync(string lastName = "",
+		                                                       string firstName = "",
+		                                                       string middleName = "",
+		                                                       string degree = "")
+		{
+			var parameters = ProduceParameters(lastName, firstName, middleName, degree);
+			var result = await GetAllFilteredAsync(parameters);
+
+			return result;
+		}
+
+		private static List<KeyValuePair<string, object>> ProduceParameters(string lastName = "",
+		                                                                    string firstName = "",
+		                                                                    string middleName = "",
+		                                                                    string degree = "")
 		{
 			var parameters = new List<KeyValuePair<string, object>>();
 			if (string.IsNullOrEmpty(lastName) == false)
@@ -32,9 +57,7 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 				parameters.Add(GetDegreeParameter(degree));
 			}
 
-			var result = await GetFilteredAsync(parameters);
-
-			return result;
+			return parameters;
 		}
 
 		private static KeyValuePair<string, object> GetFirstNameParameter(string lastName)

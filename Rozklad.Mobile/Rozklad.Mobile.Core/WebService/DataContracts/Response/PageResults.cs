@@ -10,10 +10,10 @@ namespace Rozklad.Mobile.Core.WebService.DataContracts.Response
 		public int TotalCount { get; set; }
 
 		[JsonProperty("next")]
-		public int NextResultsUrl { get; set; }
+		public string NextResultsUrl { get; set; }
 
 		[JsonProperty("previous")]
-		public int PreviousResultsUrl { get; set; }
+		public string PreviousResultsUrl { get; set; }
 
 		[JsonProperty("results")]
 		public IEnumerable<TEntity> Results { get; set; } = new TEntity[0];

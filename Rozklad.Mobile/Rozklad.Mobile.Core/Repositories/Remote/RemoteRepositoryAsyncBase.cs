@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Rozklad.Mobile.Core.Configuration;
 using Rozklad.Mobile.Core.Extensions;
 using Rozklad.Mobile.Core.WebService;
 using Rozklad.Mobile.Core.WebService.DataContracts.Response;
@@ -42,14 +41,21 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 			}
 		}
 
+		public async Task<IEnumerable<TDataTransferObject>> GetAllAsync()
+		{
+			var result = await GetAllAsync(null);
+
+			return result;
+		}
+
 		public async Task<PageResults<TDataTransferObject>> GetPageAsync(int page, int limit)
 		{
 			try
 			{
 				var offset = page*limit;
 				var request = new ServiceClientRequest();
-				request.Parameters.Add(Parameters.Limit, limit);
-				request.Parameters.Add(Parameters.Offset, offset);
+				request.Parameters.Add(Configuration.Parameters.Limit, limit);
+				request.Parameters.Add(Configuration.Parameters.Offset, offset);
 
 				var result = await GetAsync<PageResults<TDataTransferObject>>(url, request);
 
@@ -60,6 +66,60 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 				e.LogToConsole();
 
 				return new PageResults<TDataTransferObject>();
+			}
+		}
+
+		protected async Task<IEnumerable<TDataTransferObject>> GetAllFilteredAsync(List<KeyValuePair<string, object>> filters)
+		{
+			var arrayOfFilters = filters.ToArray();
+			var results = await GetAllFilteredAsync(arrayOfFilters);
+
+			return results;
+		}
+
+		protected async Task<IEnumerable<TDataTransferObject>> GetAllFilteredAsync(params KeyValuePair<string, object>[] filters)
+		{
+			try
+			{
+				var request = ProduceServiceRequestWithParameters(filters);
+				var result = await GetAllAsync(request);
+
+				return result;
+			}
+			catch (WebServiceException e)
+			{
+				e.LogToConsole();
+
+				return new TDataTransferObject[0];
+			}
+		}
+
+		protected async Task<IEnumerable<TDataTransferObject>> GetAllAsync(IServiceClientRequest request)
+		{
+			try
+			{
+				var nextUrl = url;
+				List<TDataTransferObject> list = null;
+				while (string.IsNullOrEmpty(nextUrl) == false)
+				{
+					var result = await GetAsync<PageResults<TDataTransferObject>>(url, request);
+					nextUrl = result.NextResultsUrl;
+					if (list == null)
+					{
+						var count = result.TotalCount;
+						list = new List<TDataTransferObject>(count);
+					}
+					list.AddRange(result.Results);
+				}
+
+				return list;
+
+			}
+			catch (WebServiceException e)
+			{
+				e.LogToConsole();
+
+				return new TDataTransferObject[0];
 			}
 		}
 
@@ -75,12 +135,7 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 		{
 			try
 			{
-				var request = new ServiceClientRequest();
-				foreach (var filter in filters)
-				{
-					request.Parameters.Add(filter.Key, filter.Value);
-				}
-
+				var request = ProduceServiceRequestWithParameters(filters);
 				var result = await GetAsync<PageResults<TDataTransferObject>>(url, request);
 
 				return result;
@@ -91,6 +146,17 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 
 				return new PageResults<TDataTransferObject>();
 			}
+		}
+
+		private static ServiceClientRequest ProduceServiceRequestWithParameters(IEnumerable<KeyValuePair<string, object>> parameters)
+		{
+			var request = new ServiceClientRequest();
+			foreach (var parameter in parameters)
+			{
+				request.Parameters.Add(parameter.Key, parameter.Value);
+			}
+
+			return request;
 		}
 
 		public async Task<TDataTransferObject> GetAsync(IServiceClientRequest request = null)

@@ -37,6 +37,45 @@ namespace Rozklad.Mobile.Core
 			Mvx.RegisterSingleton<Repositories.Remote.ILessonRepository>(() => new Repositories.Remote.LessonRepository(Resolve<WebService.Rest.IRestServiceClient>(), Configuration.Urls.LessonsUrl));
 			Mvx.RegisterSingleton<Repositories.Remote.IRoomRepository>(() => new Repositories.Remote.RoomRepository(Resolve<WebService.Rest.IRestServiceClient>(), Configuration.Urls.RoomsUrl));
 			Mvx.RegisterSingleton<Repositories.Remote.ITeacherRepository>(() => new Repositories.Remote.TeacherRepository(Resolve<WebService.Rest.IRestServiceClient>(), Configuration.Urls.TeachersUrl));
+
+			// business logic
+			Mvx.RegisterSingleton<BusinessLogic.IEntityFetcher> (() => new BusinessLogic.EntityFetcher());
+			Mvx.RegisterSingleton<BusinessLogic.IDisciplineSearch>(() => new BusinessLogic.DisciplineSearch(Resolve<Repositories.Remote.IDisciplineRepository>(),
+																											Resolve<Repositories.Local.IDisciplineRepository>(),
+																											Resolve<BusinessLogic.Converters.IDisciplineConverter>(),
+                                                                                                            Resolve<BusinessLogic.IEntityFetcher>()));
+			Mvx.RegisterSingleton<BusinessLogic.IGroupSearch>(() => new BusinessLogic.GroupSearch(Resolve<Repositories.Remote.IGroupRepository>(),
+																								  Resolve<Repositories.Local.IGroupRepository>(),
+																								  Resolve<BusinessLogic.Converters.IGroupConverter>(),
+																								  Resolve<BusinessLogic.IEntityFetcher>()));
+			Mvx.RegisterSingleton<BusinessLogic.ITeacherSearch>(() => new BusinessLogic.TeacherSearch(Resolve<Repositories.Remote.ITeacherRepository>(),
+																									  Resolve<Repositories.Local.ITeacherRepository>(),
+																									  Resolve<BusinessLogic.Converters.ITeacherConverter>(),
+																									  Resolve<BusinessLogic.IEntityFetcher>()));
+			Mvx.RegisterSingleton<BusinessLogic.IBuildingSearch>(() => new BusinessLogic.BuildingSearch(Resolve<Repositories.Remote.IBuildingRepository>(),
+																										Resolve<Repositories.Local.IBuildingRepository>(),
+																										Resolve<BusinessLogic.Converters.IBuildingConverter>(),
+																										Resolve<BusinessLogic.IEntityFetcher>()));
+			Mvx.RegisterSingleton<BusinessLogic.IRoomSearch>(() => new BusinessLogic.RoomSearch(Resolve<Repositories.Remote.IRoomRepository>(),
+																								Resolve<Repositories.Local.IRoomRepository>(),
+																								Resolve<BusinessLogic.Converters.IRoomConverter>(),
+																								Resolve<BusinessLogic.IEntityFetcher>(),
+																								Resolve<BusinessLogic.IBuildingSearch>()));
+			Mvx.RegisterSingleton<BusinessLogic.ILessonSearch>(() => new BusinessLogic.LessonSearch(Resolve<Repositories.Remote.ILessonRepository>(),
+																									Resolve<Repositories.Local.ILessonRepository>(),
+																									Resolve<BusinessLogic.Converters.ILessonConverter>(),
+																									Resolve<BusinessLogic.IEntityFetcher>(),
+																									Resolve<BusinessLogic.IDisciplineSearch>(),
+																									Resolve<BusinessLogic.IGroupSearch>(),
+																									Resolve<BusinessLogic.ITeacherSearch>(),
+																									Resolve<BusinessLogic.IRoomSearch>()));
+			// business logic - converters
+			Mvx.RegisterSingleton<BusinessLogic.Converters.IDisciplineConverter> (() => new BusinessLogic.Converters.DisciplineConverter());
+			Mvx.RegisterSingleton<BusinessLogic.Converters.IGroupConverter> (() => new BusinessLogic.Converters.GroupConverter());
+			Mvx.RegisterSingleton<BusinessLogic.Converters.IBuildingConverter> (() => new BusinessLogic.Converters.BuildingConverter());
+			Mvx.RegisterSingleton<BusinessLogic.Converters.IRoomConverter> (() => new BusinessLogic.Converters.RoomConverter());
+			Mvx.RegisterSingleton<BusinessLogic.Converters.ITeacherConverter> (() => new BusinessLogic.Converters.TeacherConverter());
+			Mvx.RegisterSingleton<BusinessLogic.Converters.ILessonConverter> (() => new BusinessLogic.Converters.LessonConverter());
 		}
 
 		private static T Resolve<T>() where T : class

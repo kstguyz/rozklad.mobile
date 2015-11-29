@@ -153,7 +153,7 @@ namespace Rozklad.Mobile.Core.Repositories.Local
 		/// <summary>
 		/// Drop table
 		/// </summary>
-		public async Task DropTable()
+		public async Task DropTableAsync()
 		{
 			try
 			{
@@ -169,7 +169,7 @@ namespace Rozklad.Mobile.Core.Repositories.Local
 		/// <summary>
 		/// Create table
 		/// </summary>
-		public async Task CreateTable()
+		public async Task CreateTableAsync()
 		{
 			try
 			{

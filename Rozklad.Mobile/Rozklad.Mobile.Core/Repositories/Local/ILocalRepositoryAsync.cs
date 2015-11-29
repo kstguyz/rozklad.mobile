@@ -58,11 +58,11 @@ namespace Rozklad.Mobile.Core.Repositories.Local
 		/// <summary>
 		/// Drop table
 		/// </summary>
-		Task DropTable();
+		Task DropTableAsync();
 
 		/// <summary>
 		/// Create table
 		/// </summary>
-		Task CreateTable();
+		Task CreateTableAsync();
 	}
 }

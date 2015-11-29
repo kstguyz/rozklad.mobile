@@ -7,6 +7,9 @@
 
 		public static Discipline Convert(Rozklad.Mobile.Core.WebService.DataContracts.Response.Discipline webEntity)
 		{
+			if (webEntity == null)
+				return null;
+
 			var entity =
 				new Discipline
 				{

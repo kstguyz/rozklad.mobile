@@ -16,6 +16,22 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 
 		public async Task<PageResults<Group>> FilterAsync(string name = "", GroupType? groupType = null, GroupDegree? groupDegree = null)
 		{
+			var parameters = ProduceParameters(name, groupType, groupDegree);
+			var result = await GetFilteredAsync(parameters);
+
+			return result;
+		}
+
+		public async Task<IEnumerable<Group>> FilterAllAsync(string name = "", GroupType? groupType = null, GroupDegree? groupDegree = null)
+		{
+			var parameters = ProduceParameters(name, groupType, groupDegree);
+			var result = await GetAllFilteredAsync(parameters);
+
+			return result;
+		}
+
+		private static List<KeyValuePair<string, object>> ProduceParameters(string name = "", GroupType? groupType = null, GroupDegree? groupDegree = null)
+		{
 			var parameters = new List<KeyValuePair<string, object>>();
 			if (string.IsNullOrEmpty(name) == false)
 			{
@@ -30,9 +46,7 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 				parameters.Add(GetGroupDegreeParameter(groupDegree.Value));
 			}
 
-			var result = await GetFilteredAsync(parameters);
-
-			return result;
+			return parameters;
 		}
 
 		private static KeyValuePair<string, object> GetGroupDegreeParameter(GroupDegree groupDegree)

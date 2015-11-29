@@ -24,21 +24,21 @@ namespace Rozklad.Mobile.Core.WebService.DataContracts.Response
 		public byte DisciplineId { get; set; }
 
 		[JsonProperty("groups_names")]
-		public IEnumerable<string> GroupsNames { get; set; }
+		public IEnumerable<string> GroupNames { get; set; }
 
 		[JsonProperty("groups")]
-		public IEnumerable<int> GroupsIds { get; set; }
+		public IEnumerable<int> GroupIds { get; set; }
 
 		[JsonProperty("teachers_short_names")]
-		public IEnumerable<string> TeachersShortNames { get; set; }
+		public IEnumerable<string> TeacherShortNames { get; set; }
 
 		[JsonProperty("teachers")]
-		public IEnumerable<int> TeachersIds { get; set; }
+		public IEnumerable<int> TeacherIds { get; set; }
 
 		[JsonProperty("rooms_full_names")]
-		public IEnumerable<string> RoomsFullNames { get; set; }
+		public IEnumerable<string> RoomFullNames { get; set; }
 
 		[JsonProperty("rooms")]
-		public IEnumerable<int> RoomsIds { get; set; }
+		public IEnumerable<int> RoomIds { get; set; }
 	}
 }

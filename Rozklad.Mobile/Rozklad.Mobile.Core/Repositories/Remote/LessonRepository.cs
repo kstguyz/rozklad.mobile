@@ -14,14 +14,44 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 			: base(restServiceClient, url)
 		{ }
 
-		public async Task<PageResults<Lesson>> FilterAsync(byte? number = null,
+		public async Task<PageResults<Lesson>> FilterAsync(int? groupId = null,
+		                                                   byte? number = null,
 		                                                   byte? day = null,
 		                                                   byte? week = null,
 		                                                   LessonType? lessonType = null,
 		                                                   int? disciplineId = null,
-		                                                   int? groupId = null,
 		                                                   int? teacherId = null,
 		                                                   int? roomId = null)
+		{
+			var parameters = ProduceParameters(groupId, number, day, week, lessonType, disciplineId, teacherId, roomId);
+			var result = await GetFilteredAsync(parameters);
+
+			return result;
+		}
+
+		public async Task<IEnumerable<Lesson>> FilterAllAsync(int? groupId = null,
+		                                                      byte? number = null,
+		                                                      byte? day = null,
+		                                                      byte? week = null,
+		                                                      LessonType? lessonType = null,
+		                                                      int? disciplineId = null,
+		                                                      int? teacherId = null,
+		                                                      int? roomId = null)
+		{
+			var parameters = ProduceParameters(groupId, number, day, week, lessonType, disciplineId, teacherId, roomId);
+			var result = await GetAllFilteredAsync(parameters);
+
+			return result;
+		}
+
+		private static List<KeyValuePair<string, object>> ProduceParameters(int? groupId = null,
+														   byte? number = null,
+														   byte? day = null,
+														   byte? week = null,
+														   LessonType? lessonType = null,
+														   int? disciplineId = null,
+														   int? teacherId = null,
+														   int? roomId = null)
 		{
 			var parameters = new List<KeyValuePair<string, object>>();
 			if (number.HasValue == true)
@@ -57,9 +87,7 @@ namespace Rozklad.Mobile.Core.Repositories.Remote
 				parameters.Add(GetRoomParameter(roomId.Value));
 			}
 
-			var result = await GetFilteredAsync(parameters);
-
-			return result;
+			return parameters;
 		}
 
 		private static KeyValuePair<string, object> GetNumberParameter(byte number)
