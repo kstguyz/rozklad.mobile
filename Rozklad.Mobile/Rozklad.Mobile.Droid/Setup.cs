@@ -1,12 +1,14 @@
 using Android.Content;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Droid;
+using Cirrious.CrossCore.Droid.Platform;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Rozklad.Mobile.Core.DataBase;
 using Rozklad.Mobile.Core.Extensions;
 using Rozklad.Mobile.Core.PlatformServices;
+using Rozklad.Mobile.Droid.PlatformServices;
 
 namespace Rozklad.Mobile.Droid
 {
@@ -35,10 +37,14 @@ namespace Rozklad.Mobile.Droid
 	    private static void RgisterInIoc()
 	    {
             Mvx.RegisterSingleton<ISqlitePlatformContext>(() => new SqlitePlatformContext());
-		    Mvx.RegisterSingleton<IConsoleLogger>(ProduceLogger);
-	    }
+            Mvx.RegisterSingleton<IAndroidGlobals>(() => new AndroidGlobals(Resolve<IMvxAndroidCurrentTopActivity>()));
 
-	    private static IConsoleLogger ProduceLogger()
+			// platform specific
+		    Mvx.RegisterSingleton<IConsoleLogger>(ProduceLogger);
+            Mvx.RegisterSingleton<ISpinner>(() => new Spinner(Resolve<IAndroidGlobals>()));
+		}
+
+		private static IConsoleLogger ProduceLogger()
 	    {
 			var appContext = Resolve<IMvxAndroidGlobals>().ApplicationContext;
 			var appName = appContext.GetString(Resource.String.ApplicationName);

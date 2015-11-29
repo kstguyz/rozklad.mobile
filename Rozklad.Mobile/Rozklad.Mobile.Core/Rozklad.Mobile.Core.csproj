@@ -66,6 +66,7 @@
     <Compile Include="Extensions\ConsoleLogger.cs" />
     <Compile Include="Extensions\ContainerExtensions.cs" />
     <Compile Include="Extensions\ThrowExtensions.cs" />
+    <Compile Include="PlatformServices\ISpinner.cs" />
     <Compile Include="Repositories\Local\BuildingRepository.cs" />
     <Compile Include="Repositories\Local\DisciplineRepository.cs" />
     <Compile Include="Repositories\Local\GroupRepository.cs" />
