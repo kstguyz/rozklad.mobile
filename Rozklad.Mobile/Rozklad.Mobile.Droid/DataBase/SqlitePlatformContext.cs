@@ -4,7 +4,7 @@ using Rozklad.Mobile.Core.DataBase;
 using SQLite.Net.Interop;
 using SQLite.Net.Platform.XamarinAndroid;
 
-namespace Rozklad.Mobile.Droid
+namespace Rozklad.Mobile.Droid.DataBase
 {
 	public class SqlitePlatformContext : SqlitePlatformContextBase
 	{

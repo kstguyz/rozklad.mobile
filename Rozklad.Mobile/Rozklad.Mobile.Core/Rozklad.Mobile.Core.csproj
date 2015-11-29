@@ -52,6 +52,9 @@
     <Compile Include="DataBase\SingletonConnectionFactory.cs" />
     <Compile Include="DataBase\SqliteConnectionWrapperAsync.cs" />
     <Compile Include="DataBase\SqlitePlatformContextBase.cs" />
+    <Compile Include="DeviceInformation\DeviceInformationBase.cs" />
+    <Compile Include="DeviceInformation\DeviceInformationData.cs" />
+    <Compile Include="DeviceInformation\Platform.cs" />
     <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\Discipline.cs" />
     <Compile Include="Entities\EntityBase.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="Extensions\ConsoleLogger.cs" />
     <Compile Include="Extensions\ContainerExtensions.cs" />
     <Compile Include="Extensions\ThrowExtensions.cs" />
+    <Compile Include="PlatformServices\IDeviceInformation.cs" />
     <Compile Include="PlatformServices\ISpinner.cs" />
     <Compile Include="Repositories\Local\BuildingRepository.cs" />
     <Compile Include="Repositories\Local\DisciplineRepository.cs" />
@@ -99,7 +103,7 @@
     <Compile Include="Repositories\Remote\RemoteRepositoryAsyncBase.cs" />
     <Compile Include="Repositories\Remote\RoomRepository.cs" />
     <Compile Include="Repositories\Remote\TeacherRepository.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="WebService\DataContracts\Response\Building.cs" />
     <Compile Include="WebService\DataContracts\Response\Discipline.cs" />
     <Compile Include="WebService\DataContracts\Response\Group.cs" />

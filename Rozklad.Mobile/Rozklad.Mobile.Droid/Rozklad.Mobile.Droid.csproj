@@ -72,25 +72,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndroidGlobals.cs" />
-    <Compile Include="IAndroidGlobals.cs" />
+    <Compile Include="Services\AndroidGlobals.cs" />
+    <Compile Include="Services\IAndroidGlobals.cs" />
+    <Compile Include="Extensions\KeyboardExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PlatformServices\ConsoleLogger.cs" />
+    <Compile Include="PlatformServices\DeviceInformation\DeviceInformation.cs" />
+    <Compile Include="PlatformServices\DeviceInformation\DeviceInformationDataDroid.cs" />
     <Compile Include="PlatformServices\Spinner.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlitePlatformContext.cs" />
+    <Compile Include="DataBase\SqlitePlatformContext.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="Views\Base\BaseActivity.cs" />
     <Compile Include="Views\FirstView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Rozklad.Mobile.Core.Extensions;
 using Rozklad.Mobile.Core.PlatformServices;
+using Rozklad.Mobile.Droid.Services;
 
 namespace Rozklad.Mobile.Droid.PlatformServices
 {

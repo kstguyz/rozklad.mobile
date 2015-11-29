@@ -3,7 +3,7 @@ using Android.Content;
 using Cirrious.CrossCore.Droid.Platform;
 using Rozklad.Mobile.Core.Extensions;
 
-namespace Rozklad.Mobile.Droid
+namespace Rozklad.Mobile.Droid.Services
 {
 	public class AndroidGlobals : IAndroidGlobals
 	{

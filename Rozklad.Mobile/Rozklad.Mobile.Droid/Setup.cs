@@ -5,10 +5,7 @@ using Cirrious.CrossCore.Droid.Platform;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
-using Rozklad.Mobile.Core.DataBase;
 using Rozklad.Mobile.Core.Extensions;
-using Rozklad.Mobile.Core.PlatformServices;
-using Rozklad.Mobile.Droid.PlatformServices;
 
 namespace Rozklad.Mobile.Droid
 {
@@ -36,15 +33,19 @@ namespace Rozklad.Mobile.Droid
 
 	    private static void RgisterInIoc()
 	    {
-            Mvx.RegisterSingleton<ISqlitePlatformContext>(() => new SqlitePlatformContext());
-            Mvx.RegisterSingleton<IAndroidGlobals>(() => new AndroidGlobals(Resolve<IMvxAndroidCurrentTopActivity>()));
+			// database
+            Mvx.RegisterSingleton<Core.DataBase.ISqlitePlatformContext>(() => new DataBase.SqlitePlatformContext());
+
+			// services
+			Mvx.RegisterSingleton<Services.IAndroidGlobals>(() => new Services.AndroidGlobals(Resolve<IMvxAndroidCurrentTopActivity>()));
 
 			// platform specific
-		    Mvx.RegisterSingleton<IConsoleLogger>(ProduceLogger);
-            Mvx.RegisterSingleton<ISpinner>(() => new Spinner(Resolve<IAndroidGlobals>()));
+		    Mvx.RegisterSingleton<Core.PlatformServices.IConsoleLogger>(ProduceLogger);
+            Mvx.RegisterSingleton<Core.PlatformServices.ISpinner>(() => new PlatformServices.Spinner(Resolve<Services.IAndroidGlobals>()));
+            Mvx.RegisterSingleton<Core.PlatformServices.IDeviceInformation>(() => new PlatformServices.DeviceInformation.DeviceInformation(Resolve<IMvxAndroidCurrentTopActivity>()));
 		}
 
-		private static IConsoleLogger ProduceLogger()
+		private static Core.PlatformServices.IConsoleLogger ProduceLogger()
 	    {
 			var appContext = Resolve<IMvxAndroidGlobals>().ApplicationContext;
 			var appName = appContext.GetString(Resource.String.ApplicationName);

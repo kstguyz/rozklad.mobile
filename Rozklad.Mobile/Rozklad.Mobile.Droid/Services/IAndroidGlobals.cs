@@ -1,8 +1,7 @@
-using System;
 using Android.App;
 using Android.Content;
 
-namespace Rozklad.Mobile.Droid
+namespace Rozklad.Mobile.Droid.Services
 {
 	public interface IAndroidGlobals
 	{
